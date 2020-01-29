@@ -14,7 +14,7 @@ server.on('connection', (socket) => {
   socketPool[id] = socket;
   console.log('Welcome', id);
   socket.on('data', handleData);
-  socket.on('error', (errer) => {console.log('socket error', error);});
+  socket.on('error', (error) => {console.log('socket error', error);});
   socket.on('end', () => {
     delete socketPool[id];
     console.log(`Goodbye ${id}`);
