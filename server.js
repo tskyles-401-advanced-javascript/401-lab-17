@@ -20,12 +20,20 @@ server.on('connection', (socket) => {
     console.log(`Goodbye ${id}`);
   });
 });
-
+/**
+ * parses buffer and puts into broadcast as argument
+ * @function handleData
+ * @param {*} buffer
+ */
 const handleData = (buffer) => {
   let message = JSON.parse(buffer.toString().trim());
   broadcast(message);
 };
-
+/**
+ * writes messages for to broadcast
+ * @function broadcast
+ * @param {*} message
+ */
 function broadcast(message){
   let payload = JSON.stringify(message);
   for(let socket in socketPool){

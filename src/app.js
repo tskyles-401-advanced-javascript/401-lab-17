@@ -29,15 +29,15 @@ const editFile = (file) => {
       return writeFile(file, textBuffer)
         .then(results => {
           let payload = {
-            name: 'saved',
-            data: 'file successfully changed and saved',
+            event: 'saved',
+            payload: 'file successfully changed and saved',
           };
           client.write(JSON.stringify(payload));
         })
         .catch(() => {
           let payload = {
-            name: 'error',
-            data: 'error saving file',
+            event: 'error',
+            payload: 'error saving file',
           };
           client.write(JSON.stringify(payload));
         });
