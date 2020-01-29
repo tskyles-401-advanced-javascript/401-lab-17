@@ -2,12 +2,10 @@
 
 const util = require('util');
 const fs = require('fs');
-const event = require('./event');
-// const net = require('net');
-// // const client = new net.Socket();
+const net = require('net');
+const client = new net.Socket();
 
-
-// client.connect(3001, 'localhost', () => console.log('created app socket'));
+client.connect(3001, 'localhost', () => console.log('created app socket'));
 
 let argv = process.argv;
 let file = `${__dirname}/${argv[2]}`;
@@ -30,18 +28,34 @@ const editFile = (file) => {
       let textBuffer = Buffer.from(results.toString().trim().toUpperCase());
       return writeFile(file, textBuffer)
         .then(results => {
-          console.log('success');
+          let payload = {
+            name: 'saved',
+            data: 'file successfully changed and saved',
+          };
+          client.write(JSON.stringify(payload));
         })
-        .catch(error => event.emit('error', error));
+        .catch(() => {
+          let payload = {
+            name: 'error',
+            data: 'error saving file',
+          };
+          client.write(JSON.stringify(payload));
+        });
     })
-    .catch(error => event.emit('error', error));
+    .catch(() => {
+      let payload = {
+        name: 'error',
+        data: 'error changing file',
+      };
+      client.write(JSON.stringify(payload));
+    });
 };
 
 editFile(file);
 /** 
  * @module read/writeFile
 */
-module.exports = {readFile, writeFile};
+module.exports = editFile;
 
 
 

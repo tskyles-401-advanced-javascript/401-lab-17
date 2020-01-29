@@ -1,31 +1,5 @@
 'use strict';
 
-const {readFile} = require('./src/app');
-const {writeFile} = require('./src/app');
-const event = require('./src/event');
-
-require('./src/logger');
-
-let argv = process.argv;
-let file = `${__dirname}/src/${argv[2]}`;
-/**
- *  reads and writes files
- *  @function editFile
- */
-const editFile = () => {
-  readFile(file)
-    .then(results => {
-      console.log(results);
-      writeFile(file, results);
-    })
-    .catch(error => event.emit('error', error));
-};
-
-editFile();
-
-
-'use strict';
-
 const net = require('net');
 const port = 3001;
 
