@@ -1,19 +1,25 @@
 'use strict';
 
 require('../src/event');
-const logger = require('../src/logger');
+const editFile = require('../src/app');
 
 describe('logger', () => {
-  it('creates a log on error with a payload', () => {
-    let spy = jest.spyOn(console, 'log');
-    logger('error', 'foo');
-    expect(spy).toHaveBeenCalled();
-    spy.mockRestore();
+  xit('logs the payload on error', async () => {
+    let file = `${__dirname}/src/testfile.md`;
+    let spy = jest.spyOn(console, 'error');
+    return editFile(file)
+      .then(result => {
+        expect(spy).toHaveBeenCalled();
+        spy.mockRestore();
+      });
   });
-  it('creates a log without a payload', () => {
+  xit('logs the payload on error', async () => {
+    let file = `${__dirname}/src/testfile.md`;
     let spy = jest.spyOn(console, 'log');
-    logger('readFile');
-    expect(spy).toHaveBeenCalled();
-    spy.mockRestore();
+    return editFile(file)
+      .then(result => {
+        expect(spy).toHaveBeenCalled();
+        spy.mockRestore();
+      });
   });
 });

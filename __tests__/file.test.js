@@ -2,8 +2,8 @@
 
 jest.mock('fs');
 
-const {readFile} = require('../src/edit-file');
-const {writeFile} = require('../src/edit-file');
+const readFile = require('../src/app.js');
+const writeFile = require('../src/app.js');
 
 describe('read file', () => {
 
