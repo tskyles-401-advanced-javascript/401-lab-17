@@ -51,6 +51,7 @@ const editFile = (file) => {
     });
 };
 
+editFile(file);
 /** 
  * @module read/writeFile
 */
