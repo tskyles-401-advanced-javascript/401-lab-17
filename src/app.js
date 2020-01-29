@@ -2,10 +2,10 @@
 
 const util = require('util');
 const fs = require('fs');
-const net = require('net');
-const client = new net.Socket();
+// const net = require('net');
+// const client = new net.Socket();
 
-client.connect(3001, 'localhost', () => console.log('created app socket'));
+// client.connect(3001, 'localhost', () => console.log('created app socket'));
 
 let argv = process.argv;
 let file = `${__dirname}/${argv[2]}`;
