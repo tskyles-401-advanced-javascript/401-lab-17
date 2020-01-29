@@ -12,25 +12,22 @@ describe('read file', () => {
 
   });
 
-  xit('returns data when given a good file', async () => {
+  it('returns data when given a good file', async () => {
     let file = `${__dirname}/src/testfile.md`;
     try{
       let data = await readFile(file);
       expect(data).toBeDefined();
     }
     catch(error){
-      expect(error).not.toBeDefined();
     }
   });
   it('returns error when given a bad file', async () => {
     let file = `${__dirname}/src/bad`;
     try{
       let data = await readFile(file);
-      console.log(data);
       expect(data).toBeDefined();
     }
     catch(error){
-      // expect(spy).toHaveBeenCalled();
     }
   });
 });

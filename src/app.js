@@ -34,18 +34,18 @@ const editFile = (file) => {
           };
           client.write(JSON.stringify(payload));
         })
-        .catch(() => {
+        .catch((error) => {
           let payload = {
-            event: 'error',
-            payload: 'error saving file',
+            name: 'error',
+            data: error.message,
           };
           client.write(JSON.stringify(payload));
         });
     })
-    .catch(() => {
+    .catch((error) => {
       let payload = {
         name: 'error',
-        data: 'error changing file',
+        data: error.message,
       };
       client.write(JSON.stringify(payload));
     });

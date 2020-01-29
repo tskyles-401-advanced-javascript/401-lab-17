@@ -6,6 +6,7 @@ client.connect(3001, 'localhost', () => {});
 
 client.on('data', function(data){
   let dataObj = JSON.parse(data);
+  console.log(dataObj);
   if(dataObj.event === 'saved'){
     console.log(dataObj.payload);
   }
