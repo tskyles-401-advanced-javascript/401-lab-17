@@ -55,7 +55,7 @@ editFile(file);
 /** 
  * @module read/writeFile
 */
-module.exports = editFile, readFile, writeFile;
+module.exports = {editFile, readFile, writeFile};
 
 
 

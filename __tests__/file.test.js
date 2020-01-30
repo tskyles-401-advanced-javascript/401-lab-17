@@ -2,33 +2,23 @@
 
 jest.mock('fs');
 
-const readFile = require('../src/app.js');
-const writeFile = require('../src/app.js');
+const file = require('../src/app.js');
 
 describe('read file', () => {
 
-  
-  beforeEach(() => {
-
+  it('can read a file', () => {
+    return file.readFile('file.txt')
+      .then(data => {
+        expect(Buffer.isBuffer(data)).toBeTruthy();
+      });
   });
-
-  it('returns data when given a good file', async () => {
-    let file = `${__dirname}/src/testfile.md`;
-    try{
-      let data = await readFile(file);
-      expect(data).toBeDefined();
-    }
-    catch(error){
-    }
-  });
-  it('returns error when given a bad file', async () => {
-    let file = `${__dirname}/src/bad`;
-    try{
-      let data = await readFile(file);
-      expect(data).toBeDefined();
-    }
-    catch(error){
-    }
+  it('returns error when given a bad file', () => {
+    return file.readFile('bad.txt')
+      .then(data => {
+        console.log(data);
+        expect(Buffer.isBuffer(data)).toBeFalsy();
+      })
+      .catch(error => expect(error).toBe('Invalid File'));
   });
 });
 

@@ -3,7 +3,7 @@
 module.exports = exports = {};
 
 exports.readFile = (file, cb) => {
-  if(file.match(/bad/i)){
+  if((file.match(/bad/i)) || (!file)){
     cb('Invalid File');
   }
   else{
@@ -11,11 +11,14 @@ exports.readFile = (file, cb) => {
   }
 };
 
-exports.writeFile = (file, data, cb) => {
-  if((!file) || (!data)){
+exports.writeFile = (file, buffer, cb) => {
+  if((!file) || (file.match(/bad/i))){
     cb('Invalid file/data');
   }
+  else if (!Buffer.isBuffer(buffer)){
+    cb('Invalid Buffer', undefined);
+  }
   else{
-    cb(undefined, JSON.stringify(data));
+    cb(undefined, undefined);
   }
 };
