@@ -12,8 +12,8 @@ exports.readFile = (file, cb) => {
 };
 
 exports.writeFile = (file, buffer, cb) => {
-  if((!file) || (file.match(/bad/i))){
-    cb('Invalid file/data');
+  if((file.match(/bad/i)) || (!file)){
+    cb('Invalid File');
   }
   else if (!Buffer.isBuffer(buffer)){
     cb('Invalid Buffer', undefined);

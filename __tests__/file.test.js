@@ -15,7 +15,6 @@ describe('read file', () => {
   it('returns error when given a bad file', () => {
     return file.readFile('bad.txt')
       .then(data => {
-        console.log(data);
         expect(Buffer.isBuffer(data)).toBeFalsy();
       })
       .catch(error => expect(error).toBe('Invalid File'));
@@ -23,29 +22,34 @@ describe('read file', () => {
 });
 
 describe('write file', () => {
-  let spy;
-  beforeEach(() => {
-    jest.spyOn(console, 'log');
-  });
 
-  xit('writes data successfully', async () => {
-    try{
-      let data = await writeFile('test');
-      expect(data).toBeTruthy();
-      expect(spy).toHaveBeenCalled();
-    }
-    catch(error){
-      expect(error).not.toBeDefined();
-    }
+  it('writes data successfully', () => {
+    return file.readFile('file.txt')
+      .then(data => {
+        let buffer = Buffer.from(data);
+        return file.writeFile('file.txt', buffer)
+          .then(results => {
+            expect(results).toBeUndefined();
+          });
+      });
   });
-  xit('writes data successfully', async () => {
-    try{
-      let data = await writeFile('test');
-      expect(data).toBeFalsy();
-    }
-    catch(error){
-      expect(error).toBeDefined();
-      expect(spy).toHaveBeenCalled();
-    }
+  it('returns error on bad file', () => {
+    return file.readFile('file.txt')
+      .then(data => {
+        let buffer = Buffer.from(data);
+        return file.writeFile('bad.txt', buffer)
+          .then(results => {
+          })
+          .catch(error => expect(error).toBe('Invalid File'));
+      });
+  });
+  it('returns error on bad buffer', () => {
+    return file.readFile('file.txt')
+      .then(data => {
+        return file.writeFile('bad.txt', data)
+          .then(results => {
+          })
+          .catch(error => expect(error).toBe('Invalid File'));
+      });
   });
 });
